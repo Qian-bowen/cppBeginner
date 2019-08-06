@@ -1,0 +1,283 @@
+/*
+名称：survival from SHS
+日期：2019-8-6
+作者：钱博闻
+备注：我的第一个c++项目
+*/
+#include<iostream>
+#include<ctime>
+#include<cstdlib>
+
+using namespace std;
+
+int main()
+{
+
+	/*角色昵称*/
+	string user_name;
+	/*升学途径*/
+	int enter_type;
+	/*参数名称*/
+	string name_array[4] = {"学力值","体力值","艺术值","快乐值"};
+	/*参数列表*/
+	int value_array_baseinfo[4] = {0,0,0,0};
+	/*实心方框数*/
+	int solid_num;
+	/*普通方法*/
+	int ordinary_choice;
+	/*特殊方法*/
+	int special_choice;
+
+
+	//1、为游戏人物起名/录入初始信息
+	cout << "欢迎来到游戏Survival from SHS";
+	cout << "首先请为你的角色起一个名字：";
+	cin >> user_name;
+	cout << "您好，" << user_name << "，请选择升入SHS的途径：1、自主招生 2、普通中考";
+	cin >> enter_type;
+	//2、设置游戏基本参数
+	srand(time(NULL));
+	switch (enter_type) {
+	case 1:
+		value_array_baseinfo[0] = 99;
+		value_array_baseinfo[1] = 70 + rand() % 30;
+		value_array_baseinfo[2] = 70 + rand() % 30;
+		value_array_baseinfo[3] = 70 + rand() % 30;
+		break;
+	case 2:
+		value_array_baseinfo[0] = 70 + rand() % 30;
+		value_array_baseinfo[1] = 70 + rand() % 30;
+		value_array_baseinfo[2] = 70 + rand() % 30;
+		value_array_baseinfo[3] = 99;
+		break;
+	}
+	//3、打印初始状态
+	for (int i = 0; i < 4; i++)
+	{
+		cout << name_array[i] << ":" << value_array_baseinfo[i];
+		solid_num = value_array_baseinfo[i] / 10;
+		for (int j = 0; j < 30; j++)
+		{
+			if (j <= solid_num) cout << "■";
+			else cout << "□";
+		}
+		cout << endl;
+	}
+	//4、打印注释
+	cout << "请注意，当任意值低于50时，游戏将直接结束！！！" << endl;
+	cout << "游戏一共十二轮，现在开启SHS生活吧！" << endl;
+	cout << endl;
+
+	//5、开始高一高二游戏大循环
+	for (int i = 0; i < 8; i++)
+	{
+		cout << "高一高二的生活丰富多彩，你可以：" << endl;
+		cout << "1、写写作业：日常操作" << endl;
+		cout << "2、竞赛小班：智力拓展" << endl;
+		cout << "3、DDL之力：突击学习" << endl;
+		cout << "4、疯狂艺术节：文艺魅力" << endl;
+		cout << "5、爆肝游戏：神仙乐趣" << endl;
+		cout << "6、强身健体：健康快乐" << endl;
+		cout << "请输入你的选择：" << endl;
+		cin >> ordinary_choice;
+		switch (ordinary_choice)
+		{
+		case 1:
+			value_array_baseinfo[0] += 25;
+			value_array_baseinfo[1] -= 10;
+			value_array_baseinfo[2] -= 5;
+			value_array_baseinfo[3] -= 20;
+			break;
+		case 2:
+			value_array_baseinfo[0] += 30;
+			value_array_baseinfo[1] -= 5;
+			value_array_baseinfo[2] += 5;
+			value_array_baseinfo[3] -= 15;
+			break;
+		case 3:
+			value_array_baseinfo[0] += 30;
+			value_array_baseinfo[1] -= 30;
+			value_array_baseinfo[2] -= 5;
+			value_array_baseinfo[3] -= 15;
+			break;
+		case 4:
+			value_array_baseinfo[0] -= 5;
+			value_array_baseinfo[1] -= 20;
+			value_array_baseinfo[2] += 40;
+			value_array_baseinfo[3] += 20;
+			break;
+		case 5:
+			value_array_baseinfo[0] -= 15;
+			value_array_baseinfo[1] -= 15;
+			value_array_baseinfo[2] -= 5;
+			value_array_baseinfo[3] += 30;
+			break;
+		case 6:
+			value_array_baseinfo[0] -= 10;
+			value_array_baseinfo[1] += 30;
+			value_array_baseinfo[2] += 5;
+			value_array_baseinfo[3] += 10;
+			break;
+		}
+		//打印当前参数值
+		for (int i = 0; i < 4; i++)
+		{
+			cout << name_array[i] << ":" << value_array_baseinfo[i];
+			solid_num = value_array_baseinfo[i] / 10;
+			for (int j = 0; j < 30; j++)
+			{
+				if (j <= solid_num) cout << "■";
+				else cout << "□";
+			}
+			cout << endl;
+		}
+		//警告检验
+		if (value_array_baseinfo[0] < 70 || value_array_baseinfo[1] < 70 || value_array_baseinfo[2] < 70 || value_array_baseinfo[3] < 70)
+		{
+			for (int i = 0; i < 4; i++) {
+				if (value_array_baseinfo[i] < 70) cout<<user_name<<"您的"<<name_array[i]<<"已经小于70，当小于50时将被退学！\n"<<endl;
+			}
+		}
+		//退学检验
+		if (value_array_baseinfo[0] <50 || value_array_baseinfo[1] <50 || value_array_baseinfo[2] < 50 || value_array_baseinfo[3]<50)
+		{
+			break;
+		}
+
+	}
+	//6、开始高三游戏大循环
+	for (int i = 0; i < 4; i++)
+	{
+		if (value_array_baseinfo[0] < 50 || value_array_baseinfo[1] < 50 || value_array_baseinfo[2] < 50 || value_array_baseinfo[3] < 50)
+		{
+			cout << user_name << "很抱歉告诉您，您被退学了，游戏失败！" << endl;
+			break;
+		}
+		cout << "高三终于到了，增添了三项特殊方法，你可以：" << endl;
+		cout << "23、躺尸划水" << endl;
+		cout << "233、奶人称废" << endl;
+		cout << "2333、爆肝高考" << endl;
+		cout << "1、写写作业：日常操作" << endl;
+		cout << "2、竞赛小班：智力拓展" << endl;
+		cout << "3、DDL之力：突击学习" << endl;
+		cout << "4、疯狂艺术节：文艺魅力" << endl;
+		cout << "5、爆肝游戏：神仙乐趣" << endl;
+		cout << "6、强身健体：健康快乐" << endl;
+		cout << "请输入你的选择：" << endl;
+		cin >> ordinary_choice;
+		switch (ordinary_choice)
+		{
+		case 23:
+			value_array_baseinfo[0] -= 50;
+			value_array_baseinfo[1] += 100;
+			value_array_baseinfo[2] -= 50;
+			value_array_baseinfo[3] -= 50;
+			break;
+		case 233:
+			value_array_baseinfo[0] -= 50;
+			value_array_baseinfo[1] -= 50;
+			value_array_baseinfo[2] -= 50;
+			value_array_baseinfo[3] += 100;
+			break;
+		case 2333:
+			value_array_baseinfo[0] += 100;
+			value_array_baseinfo[1] -= 50;
+			value_array_baseinfo[2] -= 50;
+			value_array_baseinfo[3] -= 50;
+			break;
+		case 1:
+			value_array_baseinfo[0] += 25;
+			value_array_baseinfo[1] -= 10;
+			value_array_baseinfo[2] -= 5;
+			value_array_baseinfo[3] -= 20;
+			break;
+		case 2:
+			value_array_baseinfo[0] += 30;
+			value_array_baseinfo[1] -= 5;
+			value_array_baseinfo[2] += 5;
+			value_array_baseinfo[3] -= 15;
+			break;
+		case 3:
+			value_array_baseinfo[0] += 30;
+			value_array_baseinfo[1] -= 30;
+			value_array_baseinfo[2] -= 5;
+			value_array_baseinfo[3] -= 15;
+			break;
+		case 4:
+			value_array_baseinfo[0] -= 5;
+			value_array_baseinfo[1] -= 20;
+			value_array_baseinfo[2] += 40;
+			value_array_baseinfo[3] += 20;
+			break;
+		case 5:
+			value_array_baseinfo[0] -= 15;
+			value_array_baseinfo[1] -= 15;
+			value_array_baseinfo[2] -= 5;
+			value_array_baseinfo[3] += 30;
+			break;
+		case 6:
+			value_array_baseinfo[0] -= 10;
+			value_array_baseinfo[1] += 30;
+			value_array_baseinfo[2] += 5;
+			value_array_baseinfo[3] += 10;
+			break;
+		}
+		//打印当前参数值
+		for (int i = 0; i < 4; i++)
+		{
+			cout << name_array[i] << ":" << value_array_baseinfo[i];
+			solid_num = value_array_baseinfo[i] / 10;
+			for (int j = 0; j < 30; j++)
+			{
+				if (j <= solid_num) cout << "■";
+				else cout << "□";
+			}
+			cout << endl;
+		}
+		if (value_array_baseinfo[0] < 70 || value_array_baseinfo[1] < 70 || value_array_baseinfo[2] < 70 || value_array_baseinfo[3] < 70)
+		{
+			for (int i = 0; i < 4; i++) {
+				if (value_array_baseinfo[i] < 70) cout << user_name << "您的" << name_array[i] << "已经小于70，当小于50时将被退学！\n" << endl;
+			}
+		}
+	}
+	if (value_array_baseinfo[0] >= 50 && value_array_baseinfo[1] >= 50 && value_array_baseinfo[2] >= 50 && value_array_baseinfo[3] >= 50)
+	{
+		//7、判定游戏结果
+		cout << "恭喜您，成功在上中存活，接下来是游戏结果：" << endl;
+		//求出最大参数
+		for (int i = 0; i < 4; i++)
+		{
+			int max;
+			max = value_array_baseinfo[0];
+			if (max < value_array_baseinfo[i]) max = value_array_baseinfo[i];
+			if (max == value_array_baseinfo[0])
+			{
+				cout << user_name << "是学术先锋！ 为你呐喊，我是莫得感情的复读机！" << endl;
+			}
+			else if (max == value_array_baseinfo[1])
+			{
+				cout << user_name << "是体育先锋！ 为你呐喊，我是莫得感情的复读机！" << endl;
+			}
+			else if (max == value_array_baseinfo[2] || max == value_array_baseinfo[3])
+			{
+				cout << user_name << "是文艺新星！ 为你呐喊，我是莫得感情的复读机！" << endl;
+			}
+			else if (value_array_baseinfo[0] >= 200 && value_array_baseinfo[1] >= 200 && value_array_baseinfo[2] >= 200 && value_array_baseinfo[3] >= 200)
+			{
+				cout << user_name << "是全面发展的巨神，太强了！！！献出我的膝盖orz 为你呐喊，我是莫得感情的复读机！" << endl;
+			}
+			else
+			{
+				cout << "恭喜你，存活过上中三年！！" << endl;
+			}
+		}
+		
+	}
+	
+	cout << "\n" << endl;
+	cout << "感谢您试玩钱博闻的C++非常简单的小项目，多谢！！！" << endl;
+	cout << "此游戏都是简单逻辑和数组，还不太会用指针和函数……" << endl;
+	cout << "所以……人生苦短，我用python！" << endl;
+	return 0;
+}
